@@ -27,13 +27,17 @@ Test result: <pass/fail + count, or "no tests exist">
 Not checked: <list>
 Questions / doubts: <list>
 ```
+First make sure `.handoff/` is ignored: append `.handoff/` to the project's `.git/info/exclude` (never to a tracked .gitignore), so it cannot be committed.
 Then show `git diff --stat`, the full `git diff`, and `git status`. Stop and wait for the user's OK.
 
 ## When the user says "publish report"
-1. Run: `python .agents/skills/agent-bridge/scripts/sanitize.py .handoff/REPORT.md logs/latest.md`
-   (it removes emails, user paths, tokens and keys). Show the user the sanitized file and ask for a final OK.
-2. Only after OK: `git add logs/ && git commit -m "report: <task>" && git push` in THIS (agent-bridge) repo only.
-3. Print the URL of `logs/latest.md` so the user can send it to the reviewer.
+LOG_REPO is the local clone of the agent-bridge repo (default `%USERPROFILE%\.gemini\antigravity\scratch\agent-bridge`).
+SANITIZER is `%USERPROFILE%\.gemini\config\skills\agent-bridge\scripts\sanitize.py` (use the installed skill folder if it differs).
+1. Run `git -C LOG_REPO remote -v`. If it does not show agent-bridge, STOP and tell the user.
+2. Run `python SANITIZER <project>\.handoff\REPORT.md LOG_REPO\logs\latest.md`. Show the sanitized file and ask the user for a final OK.
+3. Only after OK: `git -C LOG_REPO add logs/latest.md`, then `git -C LOG_REPO commit -m "report: <task>"`, then `git -C LOG_REPO push`.
+   NEVER run add/commit/push inside the project repo. NEVER use `git add -A`.
+4. Print the URL: https://github.com/yashpatadiya1724-cmyk/agent-bridge/blob/main/logs/latest.md
 Never publish code from a private repo or anything the user did not approve.
 
 ## When the user pastes reviewer feedback
