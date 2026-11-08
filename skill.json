@@ -1,0 +1,37 @@
+{
+  "name": "agent-bridge",
+  "displayName": "Agent Bridge",
+  "version": "1.0.0",
+  "description": "Secure multi-agent review bridge between Google Antigravity, Claude Code, and AI coding agents with zero-leak secret redaction and human-gated reviews.",
+  "author": {
+    "name": "Yash Patadiya",
+    "email": "yashpatadiya1724@gmail.com",
+    "url": "https://github.com/yashpatadiya1724-cmyk"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/yashpatadiya1724-cmyk/agent-bridge",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yashpatadiya1724-cmyk/agent-bridge.git"
+  },
+  "keywords": [
+    "antigravity",
+    "claude",
+    "claude-code",
+    "cursor",
+    "ai-agent",
+    "code-review",
+    "multi-agent",
+    "security",
+    "sanitizer"
+  ],
+  "compatibility": {
+    "antigravity": ">=1.0.0",
+    "claude-code": ">=2.0.0",
+    "cursor": ">=0.40.0"
+  },
+  "entrypoint": ".agents/skills/agent-bridge/SKILL.md",
+  "scripts": {
+    "sanitize": "python .agents/skills/agent-bridge/scripts/sanitize.py"
+  }
+}
