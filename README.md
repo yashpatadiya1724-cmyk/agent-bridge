@@ -43,6 +43,10 @@ flowchart TD
 
 ## 📦 Installation
 
+### Prerequisites
+- Python 3.8+ (for running `sanitize.py`)
+- Git 2.30+
+
 ### 1. Google Antigravity
 
 #### Workspace-Level (Per-Project)
