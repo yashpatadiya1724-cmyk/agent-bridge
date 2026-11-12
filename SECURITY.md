@@ -1,15 +1,9 @@
-# Security Policy
+# Security notes
 
-## Redaction & Secret Safety
-`agent-bridge` is designed with security as a primary objective:
+This is a small experiment, not a security product.
 
-1. **Local Exclusion**: Any `.handoff/` directory created in local repositories is excluded through git's internal `.git/info/exclude` rather than public tracked files, ensuring private reports cannot be inadvertently committed to version control.
-2. **Pre-Publish Redaction**: All handoff reports pass through `sanitize.py` prior to publishing. The sanitizer strips:
-   - Private and corporate email addresses.
-   - Filesystem user paths (Windows and POSIX).
-   - API keys and tokens (OpenAI, Anthropic, Google Gemini, AWS, GitHub PATs).
-   - Authorization Bearer tokens.
-3. **Outward Isolation**: The worker agent is restricted from making outward network changes (`git push`, `gh pr create`) without explicit, human-confirmed SHA approvals.
+- `sanitize.py` is a set of regular expressions. It was tested on a few sample strings only (email, user path, GitHub token, Google API key, Bearer token, `API_KEY=` lines). Patterns for other keys are untested. It can miss secrets.
+- The rules that tell the agent not to push or post are instructions. They are not enforced.
+- Do not put code from private repositories or personal data in `logs/`.
 
-## Reporting a Vulnerability
-If you discover a security vulnerability or secret leakage bypass in `agent-bridge`, please report it directly via GitHub Security Advisories or email `yashpatadiya1724@gmail.com`.
+To report a problem, open an issue on this repository.
